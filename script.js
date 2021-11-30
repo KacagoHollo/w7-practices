@@ -44,8 +44,10 @@ const formSubmit = (e) => {
 }
 
 const inputEvent = (event) => {
+    if (event.target.name === "firstName") {
     console.log(event.target.value);
     document.getElementById("inputValueContent").innerHTML = event.target.value;
+    }
 }
 
 function loadEvent() {
