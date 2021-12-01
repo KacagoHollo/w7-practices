@@ -18,21 +18,48 @@ const functionName = () => {
 functionName();
 */
 
+
 const inputElement = (type, name, label) => {
     return `
         <div>
-        <label>${label}</label>
-        <input type="${type}" name="${name}">
+            <label>${label}</label>
+            <input type="${type}" name="${name}">
         </div>
     `
 }
+
+const selectElement = (type, name, label, selectOptions) => {
+    let optionElements = "";
+    for (const option of selectOptions) {
+        optionElements += `
+            <option>${option}</option>
+        `;
+    }
+
+    return `
+        <div>
+        <label>${label}</label>
+            <${type} name="${name}">
+                ${optionElements}
+            </${type}>
+        </div>
+    `
+}
+
+/* 
+const formElement = '<form id="form">' + inputElement("text", "firstName", "Keresztneved") + inputElement("file", "profilePicture", "Profilképed") + inputElement("email", "personalEmail", "E-mail címed") + inputElement("checkbox", "newsletter", "Szeretnél-e hírlevelet kapni?") + {inputElement("checkbox", "terms", "Elfogadod-e a felhasználási feltételeket?" + selectElement("select", "where", "Hol hallottál rólunk?", ["internetről", "ismerőstől", "egyéb"]) + '<button>OK</button>' +
+'</form>'
+*/
+
+
 const formElement = `
     <form id="form">
         ${inputElement("text", "firstName", "Keresztneved")}
         ${inputElement("file", "profilePicture", "Profilképed")}
         ${inputElement("email", "personalEmail", "E-mail címed")}
-        ${inputElement("radio", "newsletter", "Szeretnél-e hírlevelet kapni?")}
+        ${inputElement("checkbox", "newsletter", "Szeretnél-e hírlevelet kapni?")}
         ${inputElement("checkbox", "terms", "Elfogadod-e a felhasználási feltételeket?")}
+        ${selectElement("select", "where", "Hol hallottál rólunk?", ["internetről", "ismerőstől", "egyéb"])}
         <button>OK</button>
     </form>
 `;
@@ -40,11 +67,17 @@ const formElement = `
 const formSubmit = (e) => {
     e.preventDefault();
     console.log(e);
-    e.target.classList.add("submitted");
+    const et = e.target;
+    et.classList.add("submitted");
+    let etValue = et.querySelector(`select[name="where"]`).value;
+    console.log(etValue);
 }
 
 const inputEvent = (event) => {
-    if (event.target.name === "firstName") {
+    const fName = document.querySelector('input[name="firstName"]');
+    let tryForm = fName.closest("#form");
+    console.log(tryForm);
+    if (event.target.getAttribute("name") === "firstName") {
     console.log(event.target.value);
     document.getElementById("inputValueContent").innerHTML = event.target.value;
     }
