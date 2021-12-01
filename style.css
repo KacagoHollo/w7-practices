@@ -6,6 +6,11 @@
 }
 
 h1 {
+  position: absolute;
+  top: 3vh;
+  left: 50vw;
+  transform: translate(-50%, 0);
+  margin: auto;
   font-size: 20px;
   text-align: center;
 }
@@ -17,7 +22,7 @@ form#form {
   /* align-items: baseline; */
 
   position: absolute;
-  top: 5vh;
+  top: 10vh;
   left: 50vw;
   transform: translate(-50%, 0);
 
